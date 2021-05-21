@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
+require('hardhat-abi-exporter');
 
 var fs = require('fs');
 const home = require('os').homedir();
@@ -30,4 +31,11 @@ module.exports = {
     sources: "./contracts",
     tests: "./test",
   },
+  abiExporter: {
+    path: './data/abi',
+    clear: true,
+    flat: true,
+    //only: [':ERC20$'],
+    spacing: 2
+  }
 };
