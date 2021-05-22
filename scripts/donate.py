@@ -29,7 +29,11 @@ amount_to_get_back = Web3.toWei(0.1, 'ether')  # do we need the amount of one of
 # preparing tx
 donate_transaction = donate_contract.functions.unDonate()\
 .buildTransaction({
+    'from': self_address,
+    'gasPrice':  Web3.toWei(0.1, 'gwei'),
+    'gas': 90000,
     'amount': amount_to_get_back,
+    'nonce': web3.eth.getTransactionCount(self_address),
 })
 signed_donate_transaction = web3.eth.account.signTransaction(donate_transaction, private_key_hex)
 raw_tx_hex = Web3.toHex(signed_donate_transaction.rawTransaction)
@@ -40,10 +44,11 @@ print(tx_hash.hex())
 
 
 """
-This returns the following error code:
+Now we get:
 
 web3.exceptions.ValidationError: 
 Could not identify the intended function with name `unDonate`, positional argument(s) of type `()` and keyword argument(s) of type `{}`.
 Found 1 function(s) with the name `unDonate`: ['unDonate(uint256)']
 Function invocation failed due to improper number of arguments.
+
 """
